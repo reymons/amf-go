@@ -88,7 +88,7 @@ func (c *Encoder) PutObject(obj *Object) error {
 			break
 		}
 
-		if err := c.AddObjectKey(key); err != nil {
+		if err := c.addObjectKey(key); err != nil {
 			return err
 		}
 
@@ -140,7 +140,7 @@ func (c *Encoder) Put(val any) error {
 	return err
 }
 
-func (c *Encoder) AddObjectKey(key string) error {
+func (c *Encoder) addObjectKey(key string) error {
 	keyLen := len(key)
 
 	if keyLen > math.MaxUint16 {

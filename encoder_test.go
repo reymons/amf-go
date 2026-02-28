@@ -83,7 +83,7 @@ func TestEncoder_AddObjectKey(t *testing.T) {
 	key := "name"
 	keyLen := uint16(len(key))
 
-	if err := enc.AddObjectKey(key); err != nil {
+	if err := enc.addObjectKey(key); err != nil {
 		t.Fatal(err)
 	}
 

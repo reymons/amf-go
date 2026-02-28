@@ -72,6 +72,21 @@ func (c *Decoder) GetFloat64() (float64, error) {
 	return n, nil
 }
 
+func (c *Decoder) GetFloat32() (float32, error) {
+	n, err := c.GetFloat64()
+	return float32(n), err
+}
+
+func (c *Decoder) GetUint8() (uint8, error) {
+	n, err := c.GetFloat64()
+	return uint8(n), err
+}
+
+func (c *Decoder) GetUint16() (uint16, error) {
+	n, err := c.GetFloat64()
+	return uint16(n), err
+}
+
 func (c *Decoder) GetUint32() (uint32, error) {
 	n, err := c.GetFloat64()
 	return uint32(n), err
@@ -88,7 +103,7 @@ func (c *Decoder) GetBool() (bool, error) {
 	return c.data[c.ptr-sizeBool] != 0, nil
 }
 
-func (c *Decoder) GetObjectKey() (string, error) {
+func (c *Decoder) getObjectKey() (string, error) {
 	if c.ptr+sizeObjKeyAddr >= len(c.data) {
 		return "", ErrBufferEmpty
 	}
@@ -124,7 +139,7 @@ func (c *Decoder) GetObject() (Object, error) {
 	obj := NewObject()
 
 	for {
-		key, err := c.GetObjectKey()
+		key, err := c.getObjectKey()
 		if err != nil {
 			return Object{}, err
 		}
