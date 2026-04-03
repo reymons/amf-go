@@ -56,6 +56,8 @@ func (p *ObjectProp) Key() string {
 
 const blankPropKey = "__blank__"
 
+var blankProp = &ObjectProp{blankPropKey, &ObjectValue{nil}}
+
 type Object struct {
 	data map[string]*ObjectProp
 }
@@ -63,7 +65,7 @@ type Object struct {
 func NewObject() Object {
 	return Object{
 		data: map[string]*ObjectProp{
-			blankPropKey: nil,
+			blankPropKey: blankProp,
 		},
 	}
 }
